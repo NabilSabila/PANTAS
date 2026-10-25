@@ -31,3 +31,8 @@ Route::post('/login/admin', [AuthController::class, 'loginAdmin']);
 // Route Sign Up Admin
 Route::get('/register/admin', [AuthController::class, 'showRegisterAdmin'])->name('admin.register');
 Route::post('/register/admin', [AuthController::class, 'registerAdmin']);
+
+// Beranda Warga
+Route::middleware('auth')->get('/warga/dashboard', function () {
+    return view('warga.dashboard');
+})->name('warga.dashboard');
