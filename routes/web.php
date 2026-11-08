@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Warga\LaporanController;
 
 // Halaman Utama Beranda
 Route::get('/', function () {
@@ -36,3 +37,13 @@ Route::post('/register/admin', [AuthController::class, 'registerAdmin']);
 Route::middleware('auth')->get('/warga/dashboard', function () {
     return view('warga.dashboard');
 })->name('warga.dashboard');
+
+// Laporan Sampah
+Route::prefix('warga/laporan')->name('warga.laporan.')->group(function () {
+    Route::get('/', [LaporanController::class, 'index'])->name('index');
+    Route::get('/buat', [LaporanController::class, 'create'])->name('create');
+    Route::post('/buat/proses', [LaporanController::class, 'postCreate'])->name('create.process'); // Menyimpan data step sementara ke session
+    Route::post('/simpan', [LaporanController::class, 'store'])->name('store'); // Simpan permanen ke DB di step 3
+    Route::get('/konfirmasi/{id}', [LaporanController::class, 'konfirmasi'])->name('konfirmasi');
+    Route::get('/{id}', [LaporanController::class, 'show'])->name('show');
+});
