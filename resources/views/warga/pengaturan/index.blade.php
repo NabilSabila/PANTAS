@@ -1,0 +1,4 @@
+@extends('warga.layouts.app')
+@section('title','Pengaturan')
+@section('content')<div class="page-header"><div><p class="eyebrow">AKUN & PENGATURAN</p><h1>Pengaturan</h1><p>Kelola pemberitahuan, keamanan, dan bantuan untuk akunmu.</p></div></div><div class="card"><h2>Pengaturan akun</h2><a class="list-link" href="{{ route('warga.notifikasi') }}"><span><strong>Notifikasi</strong><small>Informasi jadwal dan perkembangan laporan.</small></span><i data-lucide="chevron-right"></i></a><a class="list-link" href="{{ route('warga.privasi') }}"><span><strong>Privasi dan Keamanan</strong><small>Kelola kata sandi dan preferensi privasi.</small></span><i data-lucide="chevron-right"></i></a><a class="list-link" href="{{ route('warga.bantuan') }}"><span><strong>Pusat Bantuan</strong><small>Temukan jawaban dan panduan penggunaan.</small></span><i data-lucide="chevron-right"></i></a></div>
+@endsection

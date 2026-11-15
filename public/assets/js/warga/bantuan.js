@@ -1,0 +1,1 @@
+document.querySelector('[data-faq-search]')?.addEventListener('input',event=>document.querySelectorAll('.faq details').forEach(item=>item.hidden=!item.textContent.toLowerCase().includes(event.target.value.toLowerCase())));
