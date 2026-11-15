@@ -1,0 +1,4 @@
+@extends('warga.layouts.app')
+@section('title','Pusat Bantuan')
+@section('content')<div class="page-header"><div><p class="eyebrow">AKUN & PENGATURAN</p><h1>Pusat Bantuan</h1><p>Temukan panduan penggunaan PANTAS dan jawaban atas pertanyaan umum.</p></div></div><div class="card"><input data-faq-search placeholder="Cari pertanyaan tentang jadwal, laporan, atau sampah" aria-label="Cari pertanyaan"></div><div class="card faq"><h2>Pertanyaan yang sering diajukan</h2>@foreach($faq as $item)<details @if($loop->first) open @endif><summary>{{ $item['tanya'] }}</summary><p>{{ $item['jawab'] }}</p></details>@endforeach</div><p>Belum menemukan jawaban? Hubungi pusat layanan PANTAS melalui <a href="mailto:{{ config('pantas.email_layanan') }}">{{ config('pantas.email_layanan') }}</a>.</p><a class="outline" href="{{ route('warga.profil') }}">Kembali</a>@push('scripts')<script src="{{ asset('assets/js/warga/bantuan.js') }}"></script>@endpush
+@endsection
