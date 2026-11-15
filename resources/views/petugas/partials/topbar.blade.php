@@ -1,0 +1,1 @@
+<header class="topbar"><button class="menu-toggle outline small" type="button" aria-label="Buka menu" onclick="document.body.classList.toggle('menu-open')"><i data-lucide="menu"></i></button><span>PANTAS / @yield('title','Beranda')</span><span>{{ auth()->user()->nama }} &bull; {{ auth()->user()->lokasi_profil }}</span></header>
