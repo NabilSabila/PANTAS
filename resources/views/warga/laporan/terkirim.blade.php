@@ -1,0 +1,4 @@
+@extends('warga.layouts.app')
+@section('title','Konfirmasi Terkirim')
+@section('content')<div class="page-header"><div><p class="eyebrow">LAPORAN BARU</p><h1>Konfirmasi Terkirim</h1><p>Pengiriman laporan</p></div></div><div class="card success-card"><span class="icon-box large"><i data-lucide="check-circle"></i></span><p><span class="badge selesai">LAPORAN BERHASIL DIKIRIM</span></p><h2>Terima kasih sudah peduli !</h2><p>Petugas wilayahmu telah menerima notifikasi dan akan segera meninjau laporan.</p><strong>{{ $laporan->judul }} &bull; {{ $laporan->lokasi_teks }}</strong><p>{{ $laporan->created_at->translatedFormat('d F Y, H.i') }} WIB &bull; {{ $laporan->jumlah }}</p><div class="actions"><a class="button" href="{{ route('warga.laporan.show',$laporan) }}">Lihat Status Laporan</a><a class="outline" href="{{ route('warga.beranda') }}">Kembali ke Beranda</a></div></div>
+@endsection

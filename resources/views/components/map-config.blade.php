@@ -1,0 +1,2 @@
+@php($mapConfig = collect(config('maps'))->only(['provider','google_browser_key','google_map_id','tile_url','attribution','default_center','bounds','default_zoom','boundary_url'])->all())
+<script>window.PANTAS_MAP_CONFIG=@json($mapConfig);</script>
