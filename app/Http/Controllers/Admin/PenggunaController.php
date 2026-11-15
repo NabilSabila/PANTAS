@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\PenggunaUpdateRequest;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
-class PenggunaController extends Controller
+class PenggunaController extends ResourceController
 {
-    //
+    protected string $model = User::class;
+
+    protected string $feature = 'pengguna';
+
+    public function update(PenggunaUpdateRequest $request, int $id): RedirectResponse
+    {
+        return $this->persist($request, $id);
+    }
 }
