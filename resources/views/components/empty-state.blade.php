@@ -1,0 +1,1 @@
+@props(['title'=>'Belum ada data.','description'=>null])<div class="empty"><span class="icon-box"><i data-lucide="inbox"></i></span><h3>{{ $title }}</h3>@if($description)<p>{{ $description }}</p>@endif{{ $slot }}</div>
