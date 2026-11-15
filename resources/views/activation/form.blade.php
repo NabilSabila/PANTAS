@@ -1,0 +1,2 @@
+@extends('warga.layouts.auth')
+@section('content')<h1>Atur kata sandi</h1><p>Gunakan tautan satu kali dari email aktivasi. Tautan berlaku 60 menit.</p><form method="post" action="{{ route('activation.store') }}">@csrf<input type="hidden" name="token" value="{{ $token }}"><x-field name="email" label="Email" type="email" :value="$email" required/><x-password-input/><x-password-input name="password_confirmation" label="Konfirmasi Password"/><button class="button full">Simpan Kata Sandi</button></form>@endsection
