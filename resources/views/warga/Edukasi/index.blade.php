@@ -1,0 +1,6 @@
+@extends('warga.layouts.app')
+@section('title','Edukasi Warga')
+@section('content')<div class="page-header"><div><p class="eyebrow">BELAJAR BERSAMA</p><h1>Edukasi Warga</h1><p>Konten edukasi yang diterbitkan PANTAS untukmu.</p></div></div>
+@if($konten->isEmpty())<div class="card"><x-empty-state title="Belum ada konten edukasi."/></div>@else<div class="card-grid">@foreach($konten as $item)<a class="card report-card" href="{{ route('warga.edukasi.konten',$item) }}"><span class="icon-box"><i data-lucide="book-open"></i></span><h3>{{ $item->judul }}</h3><small>{{ $item->kategori }} • {{ $item->published_at?->translatedFormat('d F Y') }}</small><p>{{ Str::limit($item->ringkasan,160) }}</p></a>@endforeach</div>@endif
+<div class="banner" style="margin-top:24px"><small>DROP POINT TERDEKAT</small><h2>Setorkan sampah terpilahmu</h2>@if($dropPoint)<div class="grid"><div><p>{{ $dropPoint->nama }} menerima {{ $dropPoint->jenis_diterima }}.</p><small>{{ $dropPoint->alamat }} • {{ $dropPoint->hari_buka }}</small></div><x-peta-viewer :markers="[['lat'=>$dropPoint->lat,'lng'=>$dropPoint->lng,'label'=>$dropPoint->nama]]" :height="170"/></div>@else<p>Belum ada drop point terdaftar di wilayahmu.</p>@endif<a class="outline" href="{{ route('warga.drop-point') }}">Lihat semua drop point</a></div>
+@endsection
