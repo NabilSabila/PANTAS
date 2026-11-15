@@ -1,0 +1,4 @@
+@extends('warga.layouts.app')
+@section('title',$materi['judul'])
+@section('content')<div class="page-header"><div><p class="eyebrow">BELAJAR BERSAMA</p><h1>{{ $materi['judul'] }}</h1><p>{{ $materi['sub'] }}</p></div></div><div class="grid wide"><div class="card"><span class="icon-box"><i data-lucide="book-open"></i></span><h2>Kenali lebih dulu</h2><p>{{ $materi['teks'] }}</p></div><div class="card"><span class="icon-box"><i data-lucide="shield-check"></i></span><h2>Utamakan keamanan</h2><p>{{ $materi['aman'] }}</p></div></div><div class="card-grid">@foreach($materi['kartu'] as $card)<div class="card"><span class="icon-box"><i data-lucide="{{ $card['ikon'] }}"></i></span><h3>{{ $card['judul'] }}</h3><p>{{ $card['teks'] }}</p></div>@endforeach</div><div class="notice">Ketentuan pengumpulan dapat berbeda di setiap wilayah. Pastikan jenis sampah yang diterima sebelum menyetorkannya.</div><a class="outline" href="{{ route('warga.edukasi') }}">Kembali</a>
+@endsection
