@@ -1,0 +1,1 @@
+@props(['status'])<span class="badge {{ $status }}">{{ \App\Services\LaporanStatusService::STATUSES[$status] ?? ucfirst(str_replace('_',' ',$status)) }}</span>
