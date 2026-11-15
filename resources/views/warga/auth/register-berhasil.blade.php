@@ -1,0 +1,2 @@
+@extends('warga.layouts.auth')
+@section('content')<span class="icon-box large"><i data-lucide="check-circle"></i></span><h1>Pendaftaran Berhasil</h1><p class="muted">Akun warga berhasil dibuat. Silakan masuk untuk melanjutkan.</p><x-field name="nama" label="Nama" :value="session('pendaftaran.nama')" readonly/><x-field name="email" label="Email" :value="session('pendaftaran.email')" readonly/><a class="button full" href="{{ route('warga.login') }}">Kembali ke Masuk</a>@endsection

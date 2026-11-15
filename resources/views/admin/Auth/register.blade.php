@@ -1,0 +1,2 @@
+@extends('admin.layouts.auth')
+@section('content')<p class="eyebrow">PORTAL ADMIN</p><h1>Buat Akun Admin</h1><p class="muted">Lengkapi informasi untuk pendaftaran akun.</p><form method="post" action="{{ route('admin.daftar') }}">@csrf<x-field name="email" label="Email" type="email" required autocomplete="email"/><x-password-input/><x-password-input name="password_confirmation" label="Konfirmasi Password"/><button class="button full" type="submit">Daftar</button></form><p class="auth-footer">Sudah punya akun? <a href="{{ route('admin.login') }}">Masuk</a></p>@endsection
