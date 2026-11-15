@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-drop-point]').forEach(card=>card.addEventListener('click',event=>{if(!event.target.closest('a'))document.querySelector('[data-map-viewer]')?.pantasMap?.flyTo([+card.dataset.lat,+card.dataset.lng],16);}));
