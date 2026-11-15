@@ -1,0 +1,1 @@
+const upload=document.querySelector('[name=foto]');upload?.addEventListener('change',()=>{const file=upload.files[0],preview=document.querySelector('[data-photo-preview]'),next=document.querySelector('[data-photo-next]');if(file){preview.src=URL.createObjectURL(file);preview.hidden=false;next.disabled=false;}});

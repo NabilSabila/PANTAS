@@ -1,0 +1,1 @@
+@props(['markers'=>[],'polyline'=>false,'height'=>260])<div class="map" data-map-viewer data-markers="{{ json_encode($markers) }}" data-polyline="{{ $polyline ? '1':'0' }}" style="height:{{ $height }}px"></div>
