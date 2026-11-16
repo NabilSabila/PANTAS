@@ -122,7 +122,9 @@ abstract class ResourceController extends Controller
                     $item->titik()->create(array_merge($point, ['urutan' => $i + 1]));
                 }
                 if ($item->petugas) {
-                    app(NotifikasiService::class)->send($item->petugas, 'Rute pengangkutan diperbarui', $item->kode, 'sistem', route('petugas.rute.index'));
+                    // Tautan lama disimpan; notifikasi diarahkan ke Beranda selama fitur Petugas lain belum aktif.
+                    // app(NotifikasiService::class)->send($item->petugas, 'Rute pengangkutan diperbarui', $item->kode, 'sistem', route('petugas.rute.index'));
+                    app(NotifikasiService::class)->send($item->petugas, 'Rute pengangkutan diperbarui', $item->kode, 'sistem', route('petugas.beranda'));
                 }
             }
             if ($item instanceof Jadwal) {

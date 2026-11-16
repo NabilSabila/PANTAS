@@ -1,0 +1,5 @@
+/* Entry Vite untuk welcome bawaan. Halaman PANTAS tetap memakai CSS di public/assets. */
+@import 'tailwindcss';
+
+@source '../views/**/*.blade.php';
+@source '../js/**/*.js';

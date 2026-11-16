@@ -85,7 +85,9 @@ class LaporanWizardController extends Controller
                 $laporan->update(['nomor' => app(LaporanNomorGenerator::class)->generate($laporan)]);
                 LaporanRiwayat::create(['laporan_id' => $laporan->id, 'status' => 'baru', 'oleh_user_id' => $request->user()->id, 'catatan' => 'Foto dan detail laporan berhasil dikirim.']);
                 foreach (User::where('role', 'petugas')->where('status', 'aktif')->whereHas('areaTugas', fn ($query) => $query->where('wilayah.id', $laporan->wilayah_id)->where('aktif', true))->get() as $petugas) {
-                    app(NotifikasiService::class)->send($petugas, 'Laporan baru '.$laporan->nomor, $laporan->judul, 'laporan', route('petugas.laporan.show', $laporan));
+                    // Tautan lama disimpan; notifikasi diarahkan ke Beranda selama fitur Petugas lain belum aktif.
+                    // app(NotifikasiService::class)->send($petugas, 'Laporan baru '.$laporan->nomor, $laporan->judul, 'laporan', route('petugas.laporan.show', $laporan));
+                    app(NotifikasiService::class)->send($petugas, 'Laporan baru '.$laporan->nomor, $laporan->judul, 'laporan', route('petugas.beranda'));
                 } app(AktivitasLogger::class)->log('laporan', $laporan->prioritas === 'tinggi' ? 'Laporan prioritas tinggi masuk' : 'Laporan '.$laporan->nomor.' masuk');
 
                 return $laporan;

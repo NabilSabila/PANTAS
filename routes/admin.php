@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\RuteController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +20,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('daftar', [AuthController::class, 'register'])->name('daftar.store')->middleware('throttle:10,1');
     Route::get('daftar/berhasil', [AuthController::class, 'success'])->name('daftar.berhasil');
     Route::middleware(['auth', 'role:admin', 'aktif'])->group(function () {
+        Route::get('profil', [ProfilController::class, 'show'])->name('profil');
+        Route::get('profil/edit', [ProfilController::class, 'edit'])->name('profil.edit');
+        Route::patch('profil', [ProfilController::class, 'update'])->name('profil.update');
         Route::post('keluar', [AuthController::class, 'logout'])->name('keluar');
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('monitoring', [MonitoringController::class, 'index'])->name('monitoring');
         Route::get('aktivitas', [AktivitasController::class, 'index'])->name('aktivitas');
-        Route::resource('pengguna', PenggunaController::class)->only(['index', 'edit', 'update', 'destroy'])->parameters(['pengguna' => 'id']);
+        // Sebelumnya hanya index/edit/update/destroy; create/store diperlukan tombol Tambah Pengguna.
+        // Route::resource('pengguna', PenggunaController::class)->only(['index', 'edit', 'update', 'destroy'])->parameters(['pengguna' => 'id']);
+        Route::resource('pengguna', PenggunaController::class)->except('show')->parameters(['pengguna' => 'id']);
         Route::resource('jadwal', JadwalController::class)->except('show')->parameters(['jadwal' => 'id']);
         Route::resource('rute', RuteController::class)->except('show')->parameters(['rute' => 'id']);
         Route::resource('edukasi', EdukasiController::class)->except('show')->parameters(['edukasi' => 'id']);
