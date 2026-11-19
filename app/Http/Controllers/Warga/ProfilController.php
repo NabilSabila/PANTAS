@@ -18,7 +18,7 @@ class ProfilController extends Controller
 
     public function edit(Request $request): View
     {
-        return view('warga.profil.edit', ['user' => $request->user(), 'wilayah' => Wilayah::where('aktif', true)->get()]);
+        return view('warga.profil.edit', ['user' => $request->user(), 'wilayah' => Wilayah::where('aktif', true)->orderBy('nama')->get()]);
     }
 
     public function update(ProfilRequest $request): RedirectResponse
