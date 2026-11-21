@@ -110,8 +110,27 @@
     autocomplete.addEventListener('gmp-error',()=>{++version;status(messages.search);});
    }catch{status('Saran Google Places belum tersedia. Gunakan tombol Cari atau pilih titik pada peta.');}
   }
-  if(latField?.value&&lngField?.value){selected={lat:+latField.value,lng:+lngField.value,label:target?.value};place(selected);queryLabel(selected.label);map.flyTo([selected.lat,selected.lng]);}
-  area?.addEventListener('change',()=>{if(syncingArea)return;const center=centers[area.value];if(center)map.flyTo([center.lat,center.lng],14);});
+  if(latField?.value&&lngField?.value){
+    selected={lat:+latField.value,lng:+lngField.value,label:target?.value};
+    place(selected);queryLabel(selected.label);
+    map.flyTo([selected.lat,selected.lng]);
+  }else if(area?.value&&centers[area.value]){
+    const center=centers[area.value];
+    const point={lat:+center.lat,lng:+center.lng,label:center.nama,district:center.nama};
+    place(point);write(latField,point.lat);write(lngField,point.lng);
+    map.flyTo([center.lat,center.lng],15);
+  }
+  area?.addEventListener('change',()=>{
+    if(syncingArea)return;
+    const center=centers[area.value];
+    if(center){
+      map.flyTo([center.lat,center.lng],15);
+      const point={lat:+center.lat,lng:+center.lng,label:center.nama,district:center.nama};
+      place(point);write(latField,point.lat);write(lngField,point.lng);
+      if(target&&!target.value.trim()){write(target,'Kecamatan '+center.nama+', Surabaya');}
+      status('Peta diarahkan ke Kecamatan '+center.nama+'. Titik koordinat disesuaikan.');
+    }
+  });
   map.selectLocation=select;
   map.setSearchContext=point=>{++version;selected=point||null;queryLabel(point?.label||point?.nama);results?.replaceChildren();status('Cari atau pilih titik untuk lokasi yang sedang diedit.');};
   root.pantasMap=map;el.pantasMap=map;root.dispatchEvent(new CustomEvent('pantas-map-ready'));return map;

@@ -140,16 +140,41 @@ class GeoService
 
     private function district(array $address): ?string
     {
-        foreach (['city_district', 'municipality', 'district', 'suburb', 'county', 'state_district'] as $key) {
-            $candidate = preg_replace('/^kecamatan\s+|^kec\.?\s+/i', '', $address[$key] ?? '');
-            foreach (config('wilayah.aliases', []) as $alias => $standard) {
-                if (strcasecmp($candidate, $alias) === 0) {
-                    $candidate = $standard;
-                }
+        Log::debug('GeoService district lookup', ['address_fields' => $address]);
+
+        $normalize = fn (string $v): string => strtolower(preg_replace('/[\s\-]+/', '', $v));
+
+        // Build lookup table: normalized name => canonical name
+        $kecamatan = config('wilayah.kecamatan', []);
+        $aliases   = config('wilayah.aliases', []);
+
+        $lookup = [];
+        foreach ($kecamatan as $name => $coords) {
+            $lookup[$normalize((string) $name)] = (string) $name;
+        }
+        foreach ($aliases as $alias => $standard) {
+            $lookup[$normalize((string) $alias)] = (string) $standard;
+        }
+
+        // Fields to check in Nominatim address (order: district-level first)
+        foreach (['city_district', 'municipality', 'district', 'quarter', 'suburb', 'county', 'state_district'] as $key) {
+            $raw = $address[$key] ?? '';
+            if ($raw === '') {
+                continue;
             }
-            foreach (config('wilayah.kecamatan', []) as $name => $coordinates) {
-                if (strcasecmp(str_replace(' ', '', $candidate), str_replace(' ', '', (string) $name)) === 0) {
-                    return $name;
+            // Strip common prefixes
+            $candidate = preg_replace('/^kecamatan\s+|^kec\.?\s+|^kelurahan\s+|^kel\.?\s+/i', '', $raw);
+            $key2 = $normalize($candidate);
+
+            // Direct lookup
+            if (isset($lookup[$key2])) {
+                return $lookup[$key2];
+            }
+
+            // Partial match: candidate contains a kecamatan name or vice versa
+            foreach ($lookup as $normName => $canonName) {
+                if (str_contains($key2, $normName) || str_contains($normName, $key2)) {
+                    return $canonName;
                 }
             }
         }

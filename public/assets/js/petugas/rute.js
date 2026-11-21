@@ -1,0 +1,1 @@
+const clock=document.querySelector('[data-started]');if(clock){const refresh=()=>{const minutes=Math.max(0,Math.floor((Date.now()-Date.parse(clock.dataset.started))/60000));clock.textContent=String(Math.floor(minutes/60)).padStart(2,'0')+'j '+String(minutes%60).padStart(2,'0')+'m';};refresh();setInterval(refresh,1000);}
