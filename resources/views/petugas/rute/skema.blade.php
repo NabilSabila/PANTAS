@@ -1,0 +1,4 @@
+@extends('petugas.layouts.app')
+@section('title','Skema Rute')
+@section('content')<div class="page-header"><div><p class="eyebrow">AKUN & PENGATURAN</p><h1>Skema Rute</h1><p>Urutan titik pengangkutan yang ditugaskan.</p></div><a class="outline" href="{{ route('petugas.rute.index') }}">Kembali</a></div>@if($rute)@php($points=$run?->titik??$rute->titik)<div class="card"><h2>{{ $rute->kode }} &bull; {{ $rute->wilayah->nama }}</h2><x-peta-viewer :markers="$points->map(fn($point,$i)=>['lat'=>$point->lat,'lng'=>$point->lng,'label'=>$point->nama,'number'=>$i+1])->all()" :polyline="true" :height="480"/><p>Garis menghubungkan titik sesuai urutan kunjungan.</p></div>@else<div class="card"><x-empty-state title="Belum ada rute yang ditugaskan hari ini."/></div>@endif
+@endsection
