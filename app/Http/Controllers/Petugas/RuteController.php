@@ -33,4 +33,6 @@ class RuteController extends Controller
 
         return back()->with('sukses', 'Titik rute diperbarui.');
     }
+
 }
+
